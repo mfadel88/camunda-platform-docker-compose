@@ -58,6 +58,18 @@ Now you can navigate to the different web apps and log in with the user `demo` a
 
 Keycloak is used to manage users. Here you can log in with the user `admin` and password `admin`
 - Keycloak: [http://localhost:18080/auth/](http://localhost:18080/auth/)
+## Note: 
+### If you install it on the remote machine and will access Camunda apps from your local machine:
+  you will maybe need to do the following steps:
+  - Edit the .env file and change the HOST={your remote machine IP or hostname }
+  - if you edit it to hostname you have to edit Camunda remote machine and your local machine hosts file and configure it with IP and hostname
+### If you try to access the apps by HTTP and is issue occurs when try to access them like "HTTPS Required" you will do the below steps.
+  - you will acces the keycloak container by this command "sudo docker exec -it keycloak bash"
+  -  navigate to this path "/opt/bitnami/keycloak/bin" make sure that this file script is exist "kcadm.sh"
+  -  run this command "./kcadm.sh update realms/master --server http://localhost:8080/auth --realm master --user admin -s sslRequired=NONE"
+  -  will ask you for password "admin"
+  -  Then you will access the keycloak web app wuth this URL "http://IP or hostname:18080/auth", then put your credential
+  -  then navigate to the camunda-platform from the dropdown menu from the high left  then navigate to the Realem settings and edit the required ssl option from External to None
 
 The workflow engine Zeebe is available using gRPC at `localhost:26500`.
 
